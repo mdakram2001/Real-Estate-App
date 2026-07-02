@@ -129,3 +129,48 @@ We will upgrade the basic apartment recommendation and locality search system in
 
 
 
+# Implementation Plan - Beautify Gurgaon Real Estate Insights Page
+
+Beautify the [insights.py](file:///c:/Users/HP/Desktop/Capstone Project/Data Cleaning/dsmp-capstone-project/App/pages/insights.py) page to transform it from a basic linear sequence of input boxes and metrics into a premium, interactive interpretability dashboard.
+
+## Proposed Changes
+
+We will restructure the Insights page to match the visual language of the Home page and Price Predictor page, adding mathematical transparency and gorgeous visual components.
+
+### UI & Styling System
+- **Premium Hero Section**: Add a styled hero block with a deep indigo-to-purple gradient explaining what this dashboard does (linear regression model breakdown).
+- **Two-Column Dashboard Layout**: 
+  - **Left Column**: Interactive input panel categorized into subsections ("📍 Location & Type", "📐 Layout & Dimension", "✨ Finishing Details") with clean custom CSS borders and headings.
+  - **Right Column**: Live price estimation and mathematical contribution visualization.
+- **Dynamic Estimated Price Card**: A premium gradient card that displays the predicted property value instantly as the user changes inputs.
+- **Plotly Waterfall/Contribution Chart**: An interactive horizontal bar chart displaying how much each selected feature adds to or subtracts from the log price (or final price multiplier), color-coded with positive contributions in emerald green and negative in soft red.
+- **Mathematical Breakdown Expander**: An educational, expandable block containing structured explanations and LaTeX math equations representing the log-linear model:
+  $$ \log(\text{Price} + 1) = \beta_0 + \sum \beta_i x_i $$
+  and how it maps to the predicted price.
+
+### Component Code Modification
+#### [MODIFY] [insights.py](file:///c:/Users/HP/Desktop/Capstone Project/Data Cleaning/dsmp-capstone-project/App/pages/insights.py)
+- Inject custom CSS style classes at the top of the file.
+- Clean up unused or static commented code.
+- Implement the layout using `st.columns`.
+- Create a feature contribution computation mapping that calculates for the selected inputs:
+  1. Base Intercept: `intercept` (unstd log coefficient and exponential baseline).
+  2. Property Type effect.
+  3. Sector location effect.
+  4. Built-up area effect.
+  5. Age of property effect.
+  6. Bedrooms count effect.
+  7. Bathrooms count effect.
+  8. Furnishing status effect.
+  9. Servant room effect.
+- Render these contributions dynamically into an interactive horizontal bar chart using Plotly.
+- Add the LaTex mathematical formulas using `st.latex`.
+
+## Verification Plan
+
+### Manual Verification
+- Run the Streamlit application locally and navigate to the "insights" page.
+- Interact with the select boxes and number inputs.
+- Verify that the estimated price updates instantly.
+- Verify that the Plotly contribution chart displays correct, readable bars.
+- Verify that the design is responsive and looks premium.
